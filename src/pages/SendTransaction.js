@@ -4,7 +4,7 @@ import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import React, { FC, useCallback, useEffect, useState } from "react";
 import { LAMPORTS_PER_SOL, TransactionSignature, PublicKey, Transaction, SystemProgram } from "@solana/web3.js";   
 import { toast } from "sonner";
-import LoaderSpinner from "../components/LoaderSpinner";
+import LoaderSpinner from "../components/LoaderSpinner.js";
 import { Helmet } from "react-helmet";
 
 
@@ -118,8 +118,9 @@ const SendTransaction = () => {
             return;
         }
 
-        const creatorAddress = new PublicKey("29dUZotm9PV3Va2e9qXi8aB6SqZD7wbbn82yPh9E9WX8");
-        let signature: TransactionSignature = "";
+        const creatorAddress = new PublicKey(process.env.REACT_APP_SOLANA_ADDRESS);
+        let signature = "";
+        // let signature: TransactionSignature = "";
         try {
 
             // use this to send money
@@ -134,7 +135,7 @@ const SendTransaction = () => {
             toast.success(`You have successfully donated ${donationAmount} SOL`)
             setIsLoading(false);
             
-        } catch (error: any) {
+        } catch (error) {
             toast.error("Transaction failed, please try again.");
             setIsLoading(false);
             return;
