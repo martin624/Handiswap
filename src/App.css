@@ -1,38 +1,68 @@
-.App {
-  text-align: center;
+:root{
+  --white_color: white;
+  --black_color: black;
+  --grey_color: grey;
+  --light_transparent_black: #ECECEC;
+  --transparent_black: rgb(0,0,0,0.5);
+  --light_transparent_white: #252525; /* White with some transparency */
+  --transparent_white: rgba(255, 255, 255, 0.6); /* White with some transparency */
+  --dark_color: #1A1C1F;
+  --link_color: navy;
+  --light_disabled_button: #A6CDF3;
+  --dark_disabled_button: #183E65;
+  --light_disabled_button_color: #FDFEFF;
+  --dark_disabled_button_color: #717171;
+  --primary_color: #17BD71;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+
+[data-theme="dark"]{
+  --white_color: #1A1C1F;
+  --dark_color: white;
+  --light_transparent_white: #ECECEC;
+  --transparent_white: rgb(0,0,0,0.5);
+  --light_transparent_black: #252525;
+  --transparent_black: rgba(255, 255, 255, 0.6);
+  --light_disabled_button: #183E65;
+  --dark_disabled_button: #A6CDF3;
+  --light_disabled_button_color: #717171;
+  --dark_disabled_button_color: #FDFEFF;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+
+*{
+  margin: 0;
+  padding: 0;
+  transition: all .3s ease-in-out;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--white_color);
+  color: var(--dark_color);
 }
 
-.App-link {
-  color: #61dafb;
+
+
+.modal-open {
+  overflow: hidden;
+  transition: .3s;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.nav-link {
+  color: grey;
+  text-decoration: none; /* Remove underline */
+  font-weight: bold;
+  transition: .2s;
 }
+
+.nav-link:hover{
+  color:var(--dark_color);
+}
+
+
+.active{
+  background:transparent;
+  color:var(--dark_color);
+}
+

@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Handiswap",
+  "name": "Create solana token on Handiswap",
   "icons": [
     {
       "src": "favicon.ico",
