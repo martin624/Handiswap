@@ -23,7 +23,7 @@ function App() {
                 <Route path='/' element={<Homepage/>}/>
                 <Route path='/token-mint' element={<CreateToken/>}/>
                 <Route path='/token-metadata' element={<TokenMetadata/>}/>
-                <Route path='/testnet-sol' element={<Airdrop/>}/>
+                <Route path='/faucet-sol' element={<Airdrop/>}/>
                 <Route path='/donate' element={<SendTransaction/>}/>
                 {/* <Route path='/privacy-policy' element={<Privacypolicy/>}/>
                 <Route path='/terms-of-service' element={<Termsofservice/>}/> */}

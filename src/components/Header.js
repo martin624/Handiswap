@@ -362,7 +362,7 @@ const Header = () => {
                         {publicKey?<ConnectWalletButton onClick={()=>{navigator.clipboard.writeText(publicKey?.toBase58()); showCopyAddress()}}><IoWalletOutline style={{color:"var(--dark_color)"}}/>{shortenTextWithParentheses(publicKey?.toBase58(), 15)}{copyAddress&&<FaRegCircleCheck />}</ConnectWalletButton>:<ConnectWalletButton onClick={openModal}><IoWalletOutline style={{color:"var(--dark_color)"}}/>{connecting ? "connecting..." : "Login"}</ConnectWalletButton>}
                         <Link onClick={()=>closeSidebar()} to='/token-mint' style={{textDecoration:'none'}}><ConnectWalletButton><IoCreateOutline style={{color:"var(--dark_color)"}}/>Create</ConnectWalletButton></Link>
                         <Link onClick={()=>closeSidebar()} to='/donate' style={{textDecoration:'none'}}><ConnectWalletButton><FaDonate style={{color:"var(--dark_color)"}}/>Donate</ConnectWalletButton></Link>
-                        <Link onClick={()=>closeSidebar()} to='/testnet-sol' style={{textDecoration:'none'}}><ConnectWalletButton><TbCurrencySolana style={{color:"var(--dark_color)"}}/>Free Testnet SOL</ConnectWalletButton></Link>
+                        <Link onClick={()=>closeSidebar()} to='/faucet-sol' style={{textDecoration:'none'}}><ConnectWalletButton><TbCurrencySolana style={{color:"var(--dark_color)"}}/>Free Testnet SOL</ConnectWalletButton></Link>
                         <Link onClick={()=>closeSidebar()} to='/token-metadata' style={{textDecoration:'none'}}><ConnectWalletButton><IoDocumentTextOutline style={{color:"var(--dark_color)"}}/>View Token Metadata</ConnectWalletButton></Link>
                         <DarkMode/>
                     </InnerSecondaryNav>
