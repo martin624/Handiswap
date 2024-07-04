@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { MdOutlineLightMode } from "react-icons/md";
 import styled from 'styled-components';
 import ToggleSwitch from './ToggleSwitch';
@@ -17,10 +17,6 @@ const DarkModeTogle = styled.div`
     // &:hover{
     //     background: var(--light_transparent_black);
     // }
-`;
-
-const Label = styled.label`
-    
 `;
 
 const Container = styled.label`
@@ -75,7 +71,7 @@ const DarkMode = () => {
     // }
 
     const toggleTheme = (e)=>{
-        if(selecetedTheme!='dark'){
+        if(selecetedTheme!=='dark'){
             setDarkMode();
             setCurrentMode('Dark Mode');
         } else {
@@ -103,7 +99,7 @@ const DarkMode = () => {
                         <MdOutlineLightMode style={{cursor:'pointer', color:'var(--dark_color)'}}/>
                         {currentMode}
                         <ToggleSwitch
-                            isChecked={selecetedTheme!='dark'?false:true}
+                            isChecked={selecetedTheme!=='dark'?false:true}
                             onChange={toggleTheme}
                         />
                     </Container>

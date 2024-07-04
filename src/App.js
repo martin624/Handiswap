@@ -8,7 +8,7 @@ import { Toaster } from 'sonner';
 import CreateToken from './pages/CreateToken';
 import TokenMetadata from './pages/TokenMetadata';
 // import ContactUs from './pages/ContactUs';
-import Airdrop from './pages/Airdrop.tsx';
+import Airdrop from './pages/Airdrop';
 import SendTransaction from './pages/SendTransaction';
 // import Footer from './components/Footer.js';
 // import Privacypolicy from './pages/Privacypolicy.js';

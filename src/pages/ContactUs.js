@@ -111,7 +111,7 @@ const ContactUs = () => {
             <Container show={showContact} onSubmit={handleSubmit}>
                 <InnerContainer>
                     <h2 style={{color:'var(--dark_color)', display:'flex',justifyContent:'space-between'}}>
-                        Contact Us 
+                        Contact Us
                         <MdCancel 
                             style={{cursor:'pointer'}} 
                             onClick={showHideContactForm} 

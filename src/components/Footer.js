@@ -1,12 +1,9 @@
 import styled from "styled-components"
 import React from 'react'
-import { useWallet } from '@solana/wallet-adapter-react';
-import { shortenTextWithParentheses } from "./AddressShortner.js";
 import { FaXTwitter } from "react-icons/fa6";
 import { IoLogoInstagram } from "react-icons/io5";
 import { FaDiscord } from "react-icons/fa";
 import { FaTelegramPlane } from "react-icons/fa";
-import { Link } from "react-router-dom";
 
 const Container = styled.div`
     padding: 20px;
@@ -37,19 +34,7 @@ const MainText = styled.div`
     gap: 10px;
     color: var(--dark_color);
 `;
-const MenuContainer = styled.ul`
-    display: inline-flex;
-    gap: 20px;
 
-    @media screen and (max-width: 500px){
-        flex-direction:column;
-    }
-`;
-const MenuItem = styled.li`
-    list-style:none;
-    cursor: pointer;
-    color: var(--dark_color);
-`;
 
 const SocialIconsCon = styled.div`
     display:flex;

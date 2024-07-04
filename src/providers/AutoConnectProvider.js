@@ -1,5 +1,5 @@
 import { useLocalStorage } from "@solana/wallet-adapter-react";
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext } from "react";
 
 export const AutoConnectContext = createContext({
   autoConnect: true,

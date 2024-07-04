@@ -84,11 +84,11 @@ const ConnectWalletModal = ({openWallets, closeModal, isMobile, wallets, handleW
 
                             if(isMobile()){
                                 setTimeout(() => {
-                                    if(networkConfiguration=='testnet'){
+                                    if(networkConfiguration==='testnet'){
                                         setNetworkConfiguration('mainnet-beta');
-                                    }else if(networkConfiguration=='mainnet-beta'){
+                                    }else if(networkConfiguration==='mainnet-beta'){
                                         setNetworkConfiguration('testnet');
-                                    }else if(networkConfiguration=='devnet'){
+                                    }else if(networkConfiguration==='devnet'){
                                         setNetworkConfiguration('mainnet-beta');
                                     }
                                 }, 1000);

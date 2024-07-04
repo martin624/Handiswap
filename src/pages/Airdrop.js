@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import useUserSOLBalance from "../store/useUserSOLBalanceStore.tsx";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
-import React, { FC, useCallback, useEffect, useState } from "react";
-import { LAMPORTS_PER_SOL, TransactionSignature } from "@solana/web3.js";   
+import React, { useCallback, useEffect } from "react";
+import { LAMPORTS_PER_SOL } from "@solana/web3.js";   
+// import { LAMPORTS_PER_SOL, TransactionSignature } from "@solana/web3.js";   
 import { toast } from "sonner";
 import { Helmet } from "react-helmet";
 
@@ -34,7 +35,7 @@ const Button = styled.button`
     cursor: pointer;
 `;
 
-const Airdrop: FC = () => {
+const Airdrop = () => {
     const wallet = useWallet();
     const {connection} = useConnection();
     const {publicKey} = useWallet();
@@ -54,7 +55,8 @@ const Airdrop: FC = () => {
             toast.error("Wallet not connected!")
             return;
         }
-        let signature: TransactionSignature = "";
+        let signature = "";
+        // let signature: TransactionSignature = "";
 
         try {
             signature = await connection.requestAirdrop(publicKey, LAMPORTS_PER_SOL);

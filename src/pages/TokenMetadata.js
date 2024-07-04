@@ -119,10 +119,7 @@ const MetadataContainer = styled.div`
     // /* Hide scrollbar for IE and Edge */
     // -ms-overflow-style: none; /* IE and Edge */
 `;
-const MetadataAddress = styled.div`
 
-    color:var(--dark_color);
-`;
 const MetadataDetail = styled.div`
     display: flex;
     gap: 10px;
@@ -198,7 +195,8 @@ const TokenMetadata = () => {
 
             // console.log("Raw metadata account data:", metadataAccount.data);
 
-            const [metadata, _] = await Metadata.deserialize(metadataAccount.data);
+            const [metadata] = await Metadata.deserialize(metadataAccount.data);
+            // const [metadata, _] = await Metadata.deserialize(metadataAccount.data);
             // console.log("Deserialized metadata:", metadata);
 
             let metadataRes = await fetch(metadata.data.uri);
@@ -287,8 +285,8 @@ const TokenMetadata = () => {
                             <MetadataDetail>Symbol: <strong style={{color: 'var(--dark_color)'}}>{tokenMetadata.symbol || 'No symbol available'}</strong></MetadataDetail>
                             <MetadataDetail>Supply: <strong style={{color: 'var(--dark_color)'}}>{supply || 'No supply available'}</strong></MetadataDetail>
                             <MetadataDetail>Decimals: <strong style={{color: 'var(--dark_color)'}}>{decimals !== null ? `Decimals: ${decimals}` : 'No decimals available'}</strong></MetadataDetail>
-                            <MetadataDetail>Mint Authority: <div style={{color: 'var(--dark_color)'}}>{mintAuthority&&<AddressToken onClick={(e)=>{navigator.clipboard.writeText(mintAuthority); showCopyMintAddress()}}>{copyMintAddres?<>copied<FaRegCircleCheck /></>:<FaRegCopy />}{mintAuthority}</AddressToken> || 'No mint authority available'}</div></MetadataDetail>
-                            <MetadataDetail>Freeze Authority: <div style={{color: 'var(--dark_color)'}}>{freezeAuthority&&<AddressToken onClick={(e)=>{navigator.clipboard.writeText(freezeAuthority); showCopyFreezeAddress()}}>{copyFreezeAddres?<>copied<FaRegCircleCheck /></>:<FaRegCopy />}{freezeAuthority}</AddressToken> || 'No freeze authority available'}</div></MetadataDetail>
+                            <MetadataDetail>Mint Authority: <div style={{color: 'var(--dark_color)'}}>{mintAuthority?<AddressToken onClick={()=>{navigator.clipboard.writeText(mintAuthority); showCopyMintAddress()}}>{copyMintAddres?<>copied<FaRegCircleCheck /></>:<FaRegCopy />}{mintAuthority}</AddressToken> : 'No mint authority available'}</div></MetadataDetail>
+                            <MetadataDetail>Freeze Authority: <div style={{color: 'var(--dark_color)'}}>{freezeAuthority?<AddressToken onClick={()=>{navigator.clipboard.writeText(freezeAuthority); showCopyFreezeAddress()}}>{copyFreezeAddres?<>copied<FaRegCircleCheck /></>:<FaRegCopy />}{freezeAuthority}</AddressToken> : 'No freeze authority available'}</div></MetadataDetail>
                             <a style={{color:'var(--dark_color)'}} href={tokenMetadata.uri} target="_blank" rel="noopener noreferrer"><MetadataDetail>view raw data</MetadataDetail></a>
                             
                             {/* {tokenMetadata.social_links && (

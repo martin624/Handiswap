@@ -1,10 +1,12 @@
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
-import { Keypair, LAMPORTS_PER_SOL, TransactionSignature, PublicKey, Transaction, SystemProgram } from "@solana/web3.js";   
-import { MINT_SIZE, TOKEN_PROGRAM_ID, createInitializeMintInstruction, getMinimumBalanceForRentExemptMint, getAssociatedTokenAddress, createMintToInstruction, createAssociatedTokenAccountInstruction, freezeAccount } from "@solana/spl-token";
-import { PROGRAM_ID, createCreateMetadataAccountV3Instruction, createCreateMetadataAccountInstruction } from "@metaplex-foundation/mpl-token-metadata";
+import { Keypair, LAMPORTS_PER_SOL, PublicKey, Transaction, SystemProgram } from "@solana/web3.js";   
+// import { Keypair, LAMPORTS_PER_SOL, TransactionSignature, PublicKey, Transaction, SystemProgram } from "@solana/web3.js";   
+import { MINT_SIZE, TOKEN_PROGRAM_ID, createInitializeMintInstruction, getMinimumBalanceForRentExemptMint, getAssociatedTokenAddress, createMintToInstruction, createAssociatedTokenAccountInstruction } from "@solana/spl-token";
+import { PROGRAM_ID, createCreateMetadataAccountV3Instruction } from "@metaplex-foundation/mpl-token-metadata";
+// import { PROGRAM_ID, createCreateMetadataAccountV3Instruction, createCreateMetadataAccountInstruction } from "@metaplex-foundation/mpl-token-metadata";
 import axios from "axios";
 import styled from "styled-components";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useState } from "react";
 import { toast } from "sonner";
 import LoaderSpinner from "../components/LoaderSpinner";
 import { useNetworkConfiguration } from "../providers/NetworkConfigurationProvider";
@@ -52,25 +54,7 @@ const SubMainText = styled.h4`
     margin-top: 20px;
     color: var(--transparent_black);
 `;
-const TokenCreateSection = styled.div`
-    // display: flex;
-    // flex-direction: column;
-    // gap:20px;
-    // text-align: center;
-    // padding: 10px;
-    // width: 500px;
-    // margin: auto;
-    // margin-top: 20px;
-    // margin-bottom: 100px;
 
-    
-    
-
-    // @media screen and (max-width: 900px){
-    //     width: 100%;
-    //     // justify-content:center;
-    // }
-`;
 
 const TokenImagediv = styled.div`
         // padding:40px;
@@ -391,18 +375,18 @@ const TokenViewLink = styled.div`
 
 
 const CreateToken = () => {
-    const wallet = useWallet();
+    // const wallet = useWallet();
     const { connection, } = useConnection();
     const { networkConfiguration, setNetworkConfiguration } = useNetworkConfiguration();
 
-    const [tokenUrl, setTokenUrl] = useState('');
     const [tokenMintAddress, setTokenMintAddress] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [isImageUploading, setIsImageUploading] = useState(false);
     const [revokeMintAuthority, setRevokeMintAuthority] = useState(false);
     const [revokeFreezeAuthority, setRevokeFreezeAuthority] = useState(true);
     const [tokenCreationFeeAmount, setTokenCreationFeeAmount] = useState(0.6)
-    const { select, wallets, publicKey, disconnect, connecting, sendTransaction } = useWallet();
+    const { select, wallets, publicKey, sendTransaction } = useWallet();
+    // const { select, wallets, publicKey, disconnect, connecting, sendTransaction } = useWallet();
     const [openWallets, setOpenWallets] = useState(false);
     const [copyAddress, setCopyAddress] = useState(false);
 
@@ -427,7 +411,8 @@ const CreateToken = () => {
         }
     },[])
 
-    const {getRootProps, acceptedFiles, getInputProps, isDragActive} = useDropzone({onDrop})
+    const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
+    // const {getRootProps, acceptedFiles, getInputProps, isDragActive} = useDropzone({onDrop})
 
     const [token, setToken] = useState({
         name: "",
@@ -442,55 +427,17 @@ const CreateToken = () => {
         telegram: "",
     });
 
-    const selecetedTheme = localStorage.getItem('selectedTheme');
-    const inputRef = useRef(null);
+    // const selecetedTheme = localStorage.getItem('selectedTheme');
+    // const inputRef = useRef(null);
 
     
   
-    const handleWheel = (event) => {
-      // Prevent the default behavior (scrolling to change the value)
-      event.preventDefault();
-      if (document.activeElement === inputRef.current) {
-        inputRef.current.blur();
-      }
-    };
+
 
     const handleFormFieldChange = (fieldName, e)=>{
         setToken({...token, [fieldName]: e.target.value});
     }
-
-
-    const collectPayment = useCallback(async(token)=>{
-        setIsLoading(true);
-        const creatorAddress = new PublicKey(process.env.REACT_APP_SOLANA_ADDRESS);
-        let signature = "";
-        // let signature: TransactionSignature = "";
-
-        try {
-
-            // use this to send money
-            const transaction = new Transaction().add(
-                SystemProgram.transfer({
-                    fromPubkey: publicKey,
-                    toPubkey: creatorAddress,
-                    lamports: LAMPORTS_PER_SOL * Number(tokenCreationFeeAmount),
-                })
-            )
-
-            // console.log(token);
-            signature = await sendTransaction(transaction, connection);
-
-
-            createToken(token);
-            // toast.success(`You have successfully donated ${0.2} SOL`)
-            
-        } catch (error) {
-            toast.error("Transaction failed, please try again.");
-            return;
-        }
-        // setIsLoading(false);
-    },[tokenCreationFeeAmount])
-
+    
     // CREATE TOKEN FUNCTION HERE
     const createToken = useCallback(
         async(token)=>{
@@ -587,16 +534,50 @@ const CreateToken = () => {
         },[publicKey, connection, sendTransaction, revokeMintAuthority, revokeFreezeAuthority ])
 
     
+
+    const collectPayment = useCallback(async(token)=>{
+        setIsLoading(true);
+        const creatorAddress = new PublicKey(process.env.REACT_APP_SOLANA_ADDRESS);
+        // const signature = "";
+        // let signature: TransactionSignature = "";
+
+        try {
+
+            // use this to send money
+            const transaction = new Transaction().add(
+                SystemProgram.transfer({
+                    fromPubkey: publicKey,
+                    toPubkey: creatorAddress,
+                    lamports: LAMPORTS_PER_SOL * Number(tokenCreationFeeAmount),
+                })
+            )
+
+            // console.log(token);
+            // signature = await sendTransaction(transaction, connection);
+            await sendTransaction(transaction, connection);
+
+
+            await createToken(token);
+            // toast.success(`You have successfully donated ${0.2} SOL`)
+            
+        } catch (error) {
+            toast.error("Transaction failed, please try again.");
+            return;
+        }
+        // setIsLoading(false);
+    },[tokenCreationFeeAmount, connection, publicKey, sendTransaction, createToken])
+
+
     
     // IMAGEULOAD TO IPFS FUNCTION HERE
-    const handleImageChange = async(event)=>{
-        const file = event.target.files[0];
+    // const handleImageChange = async(event)=>{
+    //     const file = event.target.files[0];
 
-        if(file){
-            const imageURL = await uploadImagePinata(file);
-            setToken({...token, image: imageURL});
-        }
-    };
+    //     if(file){
+    //         const imageURL = await uploadImagePinata(file);
+    //         setToken({...token, image: imageURL});
+    //     }
+    // };
 
     
     const uploadImagePinata = async(file)=>{
@@ -932,7 +913,7 @@ const CreateToken = () => {
 
             :<TokenSuccssDiv>
 
-                <SuccessHeadeing>Token successfully created  <img style={{width:'30px', height:'30px'}} src={CheckImage}/></SuccessHeadeing>
+                <SuccessHeadeing>Token successfully created  <img alt="CheckImage" style={{width:'30px', height:'30px'}} src={CheckImage}/></SuccessHeadeing>
                 
                 <NewTokenLinkDiv >
                     Token address: <AddressToken onClick={()=>{navigator.clipboard.writeText(tokenMintAddress); showCopyAddress()}}>{copyAddress?<>copied<FaRegCircleCheck /></>:<FaRegCopy />}{tokenMintAddress.toString()}</AddressToken>
@@ -942,7 +923,7 @@ const CreateToken = () => {
                 <TokenDetail>Name: <strong style={{color: 'var(--dark_color)'}}>{token.name}</strong></TokenDetail>
                 <TokenDetail>Symbol: <strong style={{color: 'var(--dark_color)'}}>{token.symbol}</strong></TokenDetail>
 
-                <a style={{color: 'var(--dark_color)'}} href={`https://explorer.solana.com/address/${tokenMintAddress}?cluster=${networkConfiguration}`} target="_blank" rel="noreferrar"><TokenViewLink>View token on Solana</TokenViewLink></a>
+                <a style={{color: 'var(--dark_color)'}} href={`https://explorer.solana.com/address/${tokenMintAddress}?cluster=${networkConfiguration}`} target="_blank" rel="noreferrer"><TokenViewLink>View token on Solana</TokenViewLink></a>
             </TokenSuccssDiv>}
 
             <BlackDiv isVisible={isLoading || isImageUploading}><LoaderSpinner color='white' height={30} width={30}/></BlackDiv>

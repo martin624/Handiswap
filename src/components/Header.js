@@ -1,27 +1,19 @@
 import styled from "styled-components"
-import React, { useCallback, useContext, useEffect, useState } from 'react';
-import { Link, NavLink } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { Link } from "react-router-dom";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
-import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
-import { LAMPORTS_PER_SOL } from "@solana/web3.js";
 import { shortenTextWithParentheses } from "./AddressShortner.js";
 import DarkMode from "./DarkMode.js";
-import { CgProfile } from "react-icons/cg";
-import { LuArrowRightToLine } from "react-icons/lu";
-import { RiMenu3Fill } from "react-icons/ri";
 import { FaXTwitter } from "react-icons/fa6";
 import { IoLogoInstagram } from "react-icons/io5";
 import { FaDiscord } from "react-icons/fa";
 import { FaTelegramPlane } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
-import { FiLogIn } from "react-icons/fi";
 import useUserSOLBalance from "../store/useUserSOLBalanceStore.tsx";
 import { IoWalletOutline } from "react-icons/io5";
 import { FaDonate } from "react-icons/fa";
 import { TbCurrencySolana } from "react-icons/tb";
-import { MdOutlineEmail } from "react-icons/md";
 import { IoDocumentTextOutline } from "react-icons/io5";
-import { toast } from "sonner";
 import { useNetworkConfiguration } from "../providers/NetworkConfigurationProvider.js";
 import ConnectWalletModal from "./ConnectWalletModal.js";
 import { IoCreateOutline } from "react-icons/io5";
@@ -30,19 +22,19 @@ import HandiswapLogo from "../images/handiswaplogo.png";
 
 const NetworkSwitcher = React.lazy(() => import('./NetworkSwitcher.tsx'));
 
-const toFixed = (num, fixed) => {
-    // Convert num to string
-    const numStr = num.toString();
+// const toFixed = (num, fixed) => {
+//     // Convert num to string
+//     const numStr = num.toString();
     
-    // Create regular expression dynamically
-    const re = new RegExp(`^-?\\d+(?:\\.\\d{0,${fixed || -1}})?`);
+//     // Create regular expression dynamically
+//     const re = new RegExp(`^-?\\d+(?:\\.\\d{0,${fixed || -1}})?`);
     
-    // Match against the regular expression
-    const match = numStr.match(re);
+//     // Match against the regular expression
+//     const match = numStr.match(re);
     
-    // Return the first match or an empty string if no match
-    return match ? match[0] : '';
-};
+//     // Return the first match or an empty string if no match
+//     return match ? match[0] : '';
+// };
 
 
 // Function to detect mobile environment
@@ -77,22 +69,6 @@ const InnerContainer = styled.div`
     align-items:center;
     justify-content:space-between;
     gap:20px;
-
-    @media screen and (max-width:900px){
-        // position:fixed;
-        // right:0px;
-        // top:0px;
-        // bottom:0;
-        // left:0;
-        // flex-direction:column;
-        // justify-content:left;
-        // align-items:left;
-        // background: var(--white_color);
-        // box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
-        // padding: 20px 40px;
-        // border-radius:10px;
-        // display:none;
-    }
 `;
 
 const Logo = styled.h1`
@@ -178,35 +154,6 @@ const MenuToggle = styled.div`
 `;
 
 
-const NavigationLinkCon = styled.ul`
-    display:flex;
-    flex-direction:row;
-    padding:0;
-    transition: .3s;
-    // right:-1000px;
-
-    @media screen and (max-width:900px){
-        display:block;
-    }
-`;
-
-const NavigationLinkLink = styled.li`
-    list-style:none;
-    padding:15px;
-`;
-
-const ToggleButton = styled.div`
-    display:none;
-    cursor:pointer;
-    color: var(--dark_color);
-    padding:15px;
-
-    @media screen and (max-width:900px){
-        display:block;
-    }
-`;
-
-
 const ConnectWalletButton = styled.div`
     cursor:pointer;
     // background: var(--dark_color);
@@ -253,13 +200,6 @@ const InnerSecondaryNav = styled.div`
 `;
 
 
-const Secondarynavlink2 = styled.div`
-    display:none;
-
-    @media screen and (max-width:900px){
-        display:block;
-    }
-`;
 
 const SocialIconsCon = styled.div`
     display:flex;
@@ -287,24 +227,6 @@ const LogoutButton = styled.div`
         background: var(--light_transparent_black);
     }
 `;
-
-const BlackDiv = styled.div`
-    position: fixed;
-    top:0;
-    bottom:0;
-    left:0;
-    right:0;
-    background: rgb(0,0,0,0.5);
-    z-index:9;
-    align-items:center;
-    justify-content:center;
-    display: flex;
-    backdrop-filter: blur(5px);
-    opacity: ${(props) => (props.isVisible ? '1' : '0')};
-    visibility: ${(props) => (props.isVisible ? 'visible' : 'hidden')};
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-`;
-
 
 
 const Header = () => {
@@ -451,10 +373,10 @@ const Header = () => {
 
                     {publicKey&&<LogoutButton onClick={handleDisconnect}><FiLogOut style={{color:"var(--dark_color)"}}/>Log Out</LogoutButton>}
                     <SocialIconsCon>
-                        <a href="https://x.com/Handiswap" target="_blank"><FaXTwitter style={{cursor:'pointer', color:'var(--dark_color)'}} /></a>
-                        <a href="#" target="_blank"><IoLogoInstagram style={{cursor:'pointer', color:'var(--dark_color)'}} /></a>
-                        <a href="#" target="_blank"><FaDiscord style={{cursor:'pointer', color:'var(--dark_color)'}} /></a>
-                        <a href="#" target="_blank"><FaTelegramPlane style={{cursor:'pointer', color:'var(--dark_color)'}} /></a>
+                        <a href="https://x.com/Handiswap" target="_blank" rel="noreferrer"><FaXTwitter style={{cursor:'pointer', color:'var(--dark_color)'}} /></a>
+                        <IoLogoInstagram style={{cursor:'pointer', color:'var(--dark_color)'}} />
+                        <FaDiscord style={{cursor:'pointer', color:'var(--dark_color)'}} />
+                        <FaTelegramPlane style={{cursor:'pointer', color:'var(--dark_color)'}} />
                         
                         
                         

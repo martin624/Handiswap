@@ -1,4 +1,3 @@
-import React from 'react'
 // rounding off the numbers to the nearest whole figures +=============================================== !! ========================================================
 function RoundOffNumber(number){
     if (number < 1000) {

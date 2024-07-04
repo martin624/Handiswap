@@ -9,7 +9,7 @@ import { WalletAdapterNetwork, WalletError } from '@solana/wallet-adapter-base';
 // } from '@solana/wallet-adapter-wallets';
 import { PhantomWalletAdapter } from '@solana/wallet-adapter-phantom';
 import { SolflareWalletAdapter } from '@solana/wallet-adapter-solflare';
-import { clusterApiUrl, Cluster } from '@solana/web3.js';
+import { clusterApiUrl } from '@solana/web3.js';
 import {NetworkConfigurationProvider, useNetworkConfiguration} from './NetworkConfigurationProvider';
 import {AutoConnectProvider, useAutoConnect} from './AutoConnectProvider'
 import { toast } from 'sonner';
@@ -44,7 +44,7 @@ const WalletContextProvider: FC<{children: ReactNode}> = ({ children }) => {
     let endpoint;
     
 
-    if(network == "mainnet-beta"){
+    if(network === "mainnet-beta"){
         endpoint = "https://solana-mainnet.g.alchemy.com/v2/ot2SqvTF7lQNbysKkQdokKawiRJm3HY1"
     }else if(network === "devnet"){
         endpoint = originalEndPoint;
@@ -60,7 +60,7 @@ const WalletContextProvider: FC<{children: ReactNode}> = ({ children }) => {
             new PhantomWalletAdapter(),
             new SolflareWalletAdapter(),
         ],
-        [network]
+        []
     );
 
     const onError = useCallback((error: WalletError) => {

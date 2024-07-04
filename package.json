@@ -48,6 +48,9 @@
     "test": "react-app-rewired test",
     "eject": "react-scripts eject"
   },
+  "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
+  },
   "eslintConfig": {
     "extends": [
       "react-app",
