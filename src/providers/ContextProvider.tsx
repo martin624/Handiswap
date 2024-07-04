@@ -55,6 +55,7 @@ const WalletContextProvider: FC<{children: ReactNode}> = ({ children }) => {
     
 
     // Set up wallet adapters
+    // Set up wallet adapters
     const wallets = useMemo(
         () => [
             new PhantomWalletAdapter(),
