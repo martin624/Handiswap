@@ -1,9 +1,9 @@
 import styled from "styled-components"
 import React, { useEffect, useState } from 'react'
-import { useWallet } from '@solana/wallet-adapter-react';
+// import { useWallet } from '@solana/wallet-adapter-react';
 import ContactUs from "./ContactUs";
 import { FaArrowRightLong } from "react-icons/fa6";
-import SleekImage from "../images/sleek_image.jpeg"
+// import SleekImage from "../images/sleek_image.jpeg"
 import { Link } from "react-router-dom";
 import RoundOffNumber from "../components/RoundOffNumber";
 import Footer from "../components/Footer";
@@ -172,7 +172,7 @@ const ContactTextExplanation = styled.p`
 const ContactImage = styled.div``;
 
 const Homepage = () => {
-    const { publicKey } = useWallet();
+    // const { publicKey } = useWallet();
     const [tokensCreatedCount, setTokensCreatedCount] = useState(0);
     const [usersCount, setUsersCount] = useState(0);
     const tokensLimit = 1100;
@@ -202,7 +202,7 @@ const Homepage = () => {
 
         tokensIncrementCounter();
         usersIncrementCounter();
-    },[])
+    },[tokensIncrementTime, usersIncrementTime])
 
     return (
         <Container>

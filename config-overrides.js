@@ -17,6 +17,35 @@
 // }
 
 
+
+
+
+
+
+
+
+
+
+// const { override, addWebpackPlugin, addWebpackResolve } = require('customize-cra');
+// const NodePolyfillPlugin = require('node-polyfill-webpack-plugin');
+// const webpack = require('webpack');
+
+// module.exports = override(
+//   addWebpackResolve({
+//     fallback: {
+//       buffer: require.resolve('buffer/'),
+//     }
+//   }),
+//   addWebpackPlugin(new NodePolyfillPlugin()),
+//   addWebpackPlugin(
+//     new webpack.ProvidePlugin({
+//       Buffer: ['buffer', 'Buffer'],
+//     })
+//   )
+// );
+
+
+
 const { override, addWebpackPlugin, addWebpackResolve } = require('customize-cra');
 const NodePolyfillPlugin = require('node-polyfill-webpack-plugin');
 const webpack = require('webpack');
@@ -32,5 +61,17 @@ module.exports = override(
     new webpack.ProvidePlugin({
       Buffer: ['buffer', 'Buffer'],
     })
-  )
+  ),
+  (config) => {
+    if (!config.ignoreWarnings) {
+      config.ignoreWarnings = [];
+    }
+
+    config.ignoreWarnings.push({
+      message: /Failed to parse source map/,
+    });
+
+    return config;
+  }
 );
+
